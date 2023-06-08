@@ -10,9 +10,7 @@ interface ConversationRepository {
 
     fun findByUserId(userId: UserId): Conversation?
 
-    fun save(conversation: Conversation)
-
-    fun update(conversation: Conversation)
+    fun saveOrUpdate(conversation: Conversation): Conversation
 
     fun delete(conversationId: ConversationId)
 }

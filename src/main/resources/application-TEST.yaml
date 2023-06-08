@@ -1,0 +1,5 @@
+de.flapdoodle.mongodb.embedded.version: 6.0.2
+
+spring.data.mongodb:
+  port: 1
+  host: 127.0.0.1
