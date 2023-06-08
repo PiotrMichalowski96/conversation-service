@@ -6,9 +6,9 @@ import pl.piter.conversation.domain.model.UserId
 
 interface ConversationRepository {
 
-    fun findById(conversationId: ConversationId): Conversation
+    fun findById(conversationId: ConversationId): Conversation?
 
-    fun findByUserId(userId: UserId): Conversation
+    fun findByUserId(userId: UserId): Conversation?
 
     fun save(conversation: Conversation)
 

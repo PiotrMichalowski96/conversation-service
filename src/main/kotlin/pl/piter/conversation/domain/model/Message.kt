@@ -1,7 +1,7 @@
 package pl.piter.conversation.domain.model
 
 data class Message(
-    val id: MessageId,
-    val author: MessageAuthor,
-    val content: MessageContent,
+    val messageId: MessageId,
+    val messageAuthor: MessageAuthor,
+    val messageContent: MessageContent,
 )

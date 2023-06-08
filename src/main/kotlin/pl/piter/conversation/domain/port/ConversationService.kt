@@ -1,11 +1,12 @@
 package pl.piter.conversation.domain.port
 
-import pl.piter.conversation.domain.model.ConversationId
-import pl.piter.conversation.domain.model.ConversationName
-import pl.piter.conversation.domain.model.Message
-import pl.piter.conversation.domain.model.UserId
+import pl.piter.conversation.domain.model.*
 
 interface ConversationService {
+
+    fun get(conversationId: ConversationId): Conversation
+
+    fun delete(conversationId: ConversationId)
 
     fun initiateConversation(userId: UserId, name: ConversationName): ConversationId
 
