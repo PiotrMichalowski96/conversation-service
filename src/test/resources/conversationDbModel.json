@@ -1,0 +1,18 @@
+{
+  "id": "conversation1",
+  "userId": "user1",
+  "name": "Question about Physics",
+  "createdAt": "2023-04-21T23:00:00",
+  "messages": [
+    {
+      "id": "msg1",
+      "author": "USER",
+      "content": "What is a first Newton law?"
+    },
+    {
+      "id": "msg2",
+      "author": "CHAT_GPT",
+      "content": "I do not know"
+    }
+  ]
+}
