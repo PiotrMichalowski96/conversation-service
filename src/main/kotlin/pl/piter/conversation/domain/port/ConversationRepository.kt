@@ -1,8 +1,8 @@
 package pl.piter.conversation.domain.port
 
+import pl.piter.conversation.domain.model.Conversation
 import pl.piter.conversation.domain.model.ConversationId
 import pl.piter.conversation.domain.model.UserId
-import pl.piter.conversation.entity.Conversation
 
 interface ConversationRepository {
 
