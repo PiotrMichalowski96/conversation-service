@@ -13,6 +13,14 @@ fun ConversationDbModel.toDomain() = Conversation(
     conversationDateTime = ConversationDateTime(createdAt)
 )
 
+fun Conversation.toDbModel() = ConversationDbModel(
+    id = conversationId.id,
+    userId = userId.id,
+    name = conversationName.name,
+    createdAt = conversationDateTime.createdAt,
+    messages = conversationMessages.messages.map { it.toDbModel() }
+)
+
 private fun MessageDbModel.toDomain() = Message(
     messageId = MessageId(id),
     messageAuthor = mapAuthor(author),
@@ -22,4 +30,15 @@ private fun MessageDbModel.toDomain() = Message(
 private fun mapAuthor(authorDbModel: AuthorDbModel) = when (authorDbModel) {
     AuthorDbModel.USER -> MessageAuthor.USER
     AuthorDbModel.CHAT_GPT -> MessageAuthor.CHAT_GPT
+}
+
+private fun Message.toDbModel() = MessageDbModel(
+    id = messageId.id,
+    content = messageContent.content,
+    author = mapAuthor(messageAuthor)
+)
+
+private fun mapAuthor(authorDomain: MessageAuthor) = when (authorDomain) {
+    MessageAuthor.USER -> AuthorDbModel.USER
+    MessageAuthor.CHAT_GPT -> AuthorDbModel.CHAT_GPT
 }

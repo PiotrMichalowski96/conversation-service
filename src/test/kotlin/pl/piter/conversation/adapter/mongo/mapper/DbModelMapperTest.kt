@@ -4,23 +4,35 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import pl.piter.conversation.adapter.mongo.model.ConversationDbModel
 import pl.piter.conversation.domain.model.Conversation
-import pl.piter.conversation.util.JsonConverter
+import pl.piter.conversation.util.ConversationTestData
 
 class DbModelMapperTest {
 
     @Test
     fun `given db model when mapped then return domain model`() {
         //given
-        val conversationDbSample = "src/test/resources/conversationDbModel.json"
-        val conversationDb: ConversationDbModel = JsonConverter.readJsonFile(conversationDbSample)
-
-        val expectedConversationSample = "src/test/resources/conversationDomain.json"
-        val expectedConversationDomain: Conversation = JsonConverter.readJsonFile(expectedConversationSample)
+        val sampleNo = 0
+        val conversationDb: ConversationDbModel = ConversationTestData.getDatabaseModel(sampleNo)
+        val expectedConversationDomain: Conversation = ConversationTestData.getDomain(sampleNo)
 
         //when
         val actualConversationDomain: Conversation = conversationDb.toDomain()
 
         //then
         assertThat(actualConversationDomain).isEqualTo(expectedConversationDomain)
+    }
+
+    @Test
+    fun `given domain when mapped then return db model`() {
+        //given
+        val sampleNo = 1
+        val conversationDomain: Conversation = ConversationTestData.getDomain(sampleNo)
+        val expectedConversationDb: ConversationDbModel = ConversationTestData.getDatabaseModel(sampleNo)
+
+        //when
+        val actualConversationDb: ConversationDbModel = conversationDomain.toDbModel()
+
+        //then
+        assertThat(actualConversationDb).isEqualTo(expectedConversationDb)
     }
 }
