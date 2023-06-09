@@ -8,7 +8,7 @@ interface ConversationRepository {
 
     fun findById(conversationId: ConversationId): Conversation?
 
-    fun findByUserId(userId: UserId): Conversation?
+    fun findByUserId(userId: UserId): List<Conversation>
 
     fun saveOrUpdate(conversation: Conversation): Conversation
 

@@ -18,10 +18,9 @@ class MongoDbConversationRepository(private val repository: SpringConversationRe
             .orElse(null)
     }
 
-    override fun findByUserId(userId: UserId): Conversation? {
+    override fun findByUserId(userId: UserId): List<Conversation> {
         return repository.findByUserId(userId.id)
             .map { it.toDomain() }
-            .orElse(null)
     }
 
     override fun saveOrUpdate(conversation: Conversation): Conversation {
