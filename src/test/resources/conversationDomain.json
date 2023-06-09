@@ -1,0 +1,36 @@
+{
+  "conversationId": {
+    "id": "conversation1"
+  },
+  "userId": {
+    "id": "user1"
+  },
+  "conversationName": {
+    "name": "Question about Physics"
+  },
+  "conversationDateTime": {
+    "createdAt": "2023-04-21T23:00:00"
+  },
+  "conversationMessages": {
+    "messages": [
+      {
+        "messageId": {
+          "id": "msg1"
+        },
+        "messageAuthor": "USER",
+        "messageContent": {
+          "content": "What is a first Newton law?"
+        }
+      },
+      {
+        "messageId": {
+          "id": "msg2"
+        },
+        "messageAuthor": "CHAT_GPT",
+        "messageContent": {
+          "content": "I do not know"
+        }
+      }
+    ]
+  }
+}
