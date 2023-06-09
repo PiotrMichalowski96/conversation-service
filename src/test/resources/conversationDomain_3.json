@@ -1,0 +1,45 @@
+{
+  "conversationId": {
+    "id": "conversation2"
+  },
+  "userId": {
+    "id": "user2"
+  },
+  "conversationName": {
+    "name": "Question about Math"
+  },
+  "conversationDateTime": {
+    "createdAt": "2023-04-21T22:00:00"
+  },
+  "conversationMessages": {
+    "messages": [
+      {
+        "messageId": {
+          "id": "msg3"
+        },
+        "messageAuthor": "USER",
+        "messageContent": {
+          "content": "What is a P versus NP problem?"
+        }
+      },
+      {
+        "messageId": {
+          "id": "msg4"
+        },
+        "messageAuthor": "CHAT_GPT",
+        "messageContent": {
+          "content": "I do not know"
+        }
+      },
+      {
+        "messageId": {
+          "id": "msg5"
+        },
+        "messageAuthor": "USER",
+        "messageContent": {
+          "content": "Okay"
+        }
+      }
+    ]
+  }
+}

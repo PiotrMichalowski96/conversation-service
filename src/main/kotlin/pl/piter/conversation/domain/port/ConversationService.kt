@@ -8,9 +8,9 @@ class ConversationService(
     private val chatService: ChatService
 ) {
 
-    fun get(conversationId: ConversationId): Conversation? = repository.findById(conversationId)
+    operator fun get(conversationId: ConversationId): Conversation? = repository.findById(conversationId)
 
-    fun get(userId: UserId): List<Conversation> = repository.findByUserId(userId)
+    operator fun get(userId: UserId): List<Conversation> = repository.findByUserId(userId)
 
     fun delete(conversationId: ConversationId) = repository.delete(conversationId)
 
@@ -20,13 +20,15 @@ class ConversationService(
     }
 
     fun chat(question: Message, conversationId: ConversationId): Conversation {
+        require(question.messageAuthor == MessageAuthor.USER)
+
         val conversation: Conversation = repository.findById(conversationId)
             ?: throw DomainException("Cannot chat with non-existing conversation")
 
-        addMessageAndPersist(conversation, question)
+        val conversationWithQuestion = addMessageAndPersist(conversation, question)
 
-        val answer: Message = chatService.askChat(question)
-        return addMessageAndPersist(conversation, answer)
+        val answer: Message = chatService.ask(conversationWithQuestion)
+        return addMessageAndPersist(conversationWithQuestion, answer)
     }
 
     fun removeMessage(message: Message, conversationId: ConversationId): Conversation {
