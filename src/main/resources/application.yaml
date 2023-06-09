@@ -1,1 +1,11 @@
+spring.application.name: conversation-service
+server.port: 8081
 
+#External ChatGPT API
+chat-gpt.api:
+  url: https://api.openai.com/v1
+  key: ${chat-gpt-api.key} #Paste here your ChatGPT api key
+
+
+logging.level:
+  pl.piter.conversation.adapter.chatgpt.client: DEBUG
