@@ -22,6 +22,10 @@
     <java.version>17</java.version>
     <kotlin.version>1.8.21</kotlin.version>
     <spring-cloud.version>2022.0.3</spring-cloud.version>
+    <sonar.projectKey>PiotrMichalowski96_conversation-service</sonar.projectKey>
+    <sonar.organization>piotrmichalowski96</sonar.organization>
+    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+    <sonar.coverage.exclusions>**/model/*, **/configuration/*</sonar.coverage.exclusions>
   </properties>
 
   <dependencies>
@@ -87,6 +91,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
+
       <plugin>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-maven-plugin</artifactId>
@@ -105,6 +110,26 @@
             <version>${kotlin.version}</version>
           </dependency>
         </dependencies>
+      </plugin>
+
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.8</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>report</id>
+            <phase>test</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
