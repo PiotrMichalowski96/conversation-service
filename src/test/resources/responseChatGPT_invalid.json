@@ -1,0 +1,12 @@
+{
+  "id": "chatcmpl-7PqkKqaqiWzf9ftfEVxtlzvHC9VJR",
+  "object": "chat.completion",
+  "created": 1686395312,
+  "model": "gpt-3.5-turbo-0301",
+  "usage": {
+    "prompt_tokens": 207,
+    "completion_tokens": 140,
+    "total_tokens": 347
+  },
+  "choices": []
+}

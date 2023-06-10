@@ -1,3 +1,9 @@
 package pl.piter.conversation.domain.model
 
-data class MessageId(val id: String)
+import java.util.*
+
+data class MessageId(val id: String) {
+    companion object {
+        fun random() = MessageId(UUID.randomUUID().toString())
+    }
+}
