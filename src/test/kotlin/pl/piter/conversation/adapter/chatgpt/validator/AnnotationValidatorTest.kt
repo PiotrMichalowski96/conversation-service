@@ -1,16 +1,17 @@
 package pl.piter.conversation.adapter.chatgpt.validator
 
-import org.assertj.core.api.Assertions
+import org.assertj.core.api.Assertions.assertThatCode
+import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.extension.ExtendWith
-import org.junit.jupiter.params.ParameterizedTest
-import org.junit.jupiter.params.provider.CsvSource
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.validation.Validator
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean
+import pl.piter.conversation.adapter.chatgpt.exception.ChatValidationException
 import pl.piter.conversation.adapter.chatgpt.model.ChatGPTRequest
 import pl.piter.conversation.util.JsonConverter
 
@@ -29,18 +30,24 @@ class AnnotationValidatorTest {
         annotationValidator = AnnotationValidator(validator)
     }
 
-    @ParameterizedTest
-    @CsvSource(value = [
-        "src/test/resources/requestChatGPT_invalid.json, false",
-        "src/test/resources/requestChatGPT.json, true"])
-    fun `should validate mvp ChatGPT request`(sample: String, expectedResult: Boolean) {
+    @Test
+    fun `given invalid request when validate then throw exception`() {
         //given
-        val chatGPTRequest: ChatGPTRequest = JsonConverter.readJsonFile(sample)
+        val invalidRequest = ChatGPTRequest("", listOf())
 
-        //when
-        val result: Boolean = annotationValidator.validate(chatGPTRequest)
+        //whenThen
+        assertThatThrownBy { annotationValidator.validate(invalidRequest) }
+            .isInstanceOf(ChatValidationException::class.java)
+    }
 
-        //then
-        Assertions.assertThat(result).isEqualTo(expectedResult)
+    @Test
+    fun `given valid request when validate then do not throw exception`() {
+        //given
+        val requestSample = "src/test/resources/requestChatGPT.json"
+        val request: ChatGPTRequest = JsonConverter.readJsonFile(requestSample)
+
+        //whenThen
+        assertThatCode { annotationValidator.validate(request) }
+            .doesNotThrowAnyException()
     }
 }
