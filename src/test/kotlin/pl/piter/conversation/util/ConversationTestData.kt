@@ -9,7 +9,7 @@ object ConversationTestData {
     private const val jsonFile = ".json"
 
     private val dbModelSamples = listOf("conversationDbModel", "conversationDbModel_2")
-    private val domainSamples = listOf("conversationDomain", "conversationDomain_2")
+    private val domainSamples = listOf("conversationDomain", "conversationDomain_2", "conversationDomain_3")
 
     fun getDatabaseModel(index: Int): ConversationDbModel = getTestData(dbModelSamples, index)
 

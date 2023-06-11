@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Import
 import org.springframework.test.context.ActiveProfiles
 import pl.piter.conversation.adapter.mongo.model.ConversationDbModel
 import pl.piter.conversation.domain.model.Conversation
+import pl.piter.conversation.domain.model.ConversationId
 import pl.piter.conversation.domain.model.ConversationName
 import pl.piter.conversation.domain.model.UserId
 import pl.piter.conversation.util.ConversationTestData
@@ -48,21 +49,35 @@ class MongoDbConversationRepositoryTest {
     }
 
     @Test
+    fun `given non-existing conversation id when find by id then return null`() {
+        //given
+        val nonExistingId = ConversationId(UUID.randomUUID().toString())
+
+        //when
+        val conversation = mongoDbConversationRepository.findById(nonExistingId)
+
+        //then
+        assertThat(conversation).isNull()
+    }
+
+    @Test
     fun `given user id when find by user id then return conversation`() {
         //given
         val sampleNo = 0
-        val expectedConversation: Conversation = ConversationTestData.getDomain(sampleNo)
-        val userId = expectedConversation.userId
+        val expectedConversations: List<Conversation> = listOf(ConversationTestData.getDomain(sampleNo))
+        val userId = expectedConversations[0].userId
 
         //when
         val actualConversation = mongoDbConversationRepository.findByUserId(userId)
 
         //then
-        assertThat(actualConversation).isEqualTo(expectedConversation)
+        assertThat(actualConversation)
+            .hasSize(1)
+            .hasSameElementsAs(expectedConversations)
     }
 
     @Test
-    fun `given non-existing user id when find by user id then return null`() {
+    fun `given non-existing user id when find by user id then return empty list`() {
         //given
         val nonExistingUserId = UserId(UUID.randomUUID().toString())
 
@@ -70,7 +85,7 @@ class MongoDbConversationRepositoryTest {
         val conversation = mongoDbConversationRepository.findByUserId(nonExistingUserId)
 
         //then
-        assertThat(conversation).isNull()
+        assertThat(conversation).isEmpty()
     }
 
     @Test
