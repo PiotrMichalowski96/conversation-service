@@ -1,0 +1,45 @@
+{
+  "conversationId": {
+    "id": "conversation2"
+  },
+  "userId": {
+    "id": "user2"
+  },
+  "conversationName": {
+    "name": "Question about Math"
+  },
+  "conversationDateTime": {
+    "createdAt": "2023-04-21T22:00:00"
+  },
+  "conversationMessages": {
+    "messages": [
+      {
+        "messageId": {
+          "id": "msg3"
+        },
+        "messageAuthor": "USER",
+        "messageContent": {
+          "content": "What is a P versus NP problem?"
+        }
+      },
+      {
+        "messageId": {
+          "id": "msg4"
+        },
+        "messageAuthor": "CHAT_GPT",
+        "messageContent": {
+          "content": "The P versus NP problem is one of the most famous and important unsolved problems in computer science and mathematics. It asks whether problems that can be solved in polynomial time by a non-deterministic algorithm (problems in the NP complexity class) can also be solved in polynomial time by a deterministic algorithm. In other words, the question is whether the class of problems for which the algorithm can quickly verify a solution (NP) is actually the same as the class of problems for which the algorithm can quickly find a solution (P). If P equals NP, it would mean that many currently intractable computational problems could be solved efficiently, which would have significant implications for fields such as cryptography, optimization, and artificial intelligence. However, if P does not equal NP, it would mean that some problems are fundamentally harder to solve than others, even with the most powerful computers and algorithms."
+        }
+      },
+      {
+        "messageId": {
+          "id": "msg5"
+        },
+        "messageAuthor": "USER",
+        "messageContent": {
+          "content": ""
+        }
+      }
+    ]
+  }
+}
