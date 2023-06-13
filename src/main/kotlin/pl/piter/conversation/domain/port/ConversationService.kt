@@ -19,6 +19,12 @@ class ConversationService(
         return repository.saveOrUpdate(conversation)
     }
 
+    fun updateName(conversationId: ConversationId, name: ConversationName): Conversation? {
+        val conversation: Conversation? = repository.findById(conversationId)
+        val updatedConversation: Conversation? = conversation?.copy(conversationName = name)
+        return updatedConversation?.let { repository.saveOrUpdate(it) }
+    }
+
     fun chat(question: Message, conversationId: ConversationId): Conversation {
         require(question.messageAuthor == MessageAuthor.USER)
 
