@@ -1,70 +1,56 @@
 package pl.piter.conversation.adapter.api
 
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.*
 import pl.piter.conversation.adapter.api.model.*
 
 @RestController
 @RequestMapping("conversations")
-class ConversationEndpoint(conversationFacade: ConversationFacade) {
+class ConversationEndpoint(private val conversationFacade: ConversationFacade) {
 
     @GetMapping
-    fun getConversations(): List<ConversationResponse> {
-        TODO("implement")
-    }
+    fun getConversations(): ResponseEntity<List<ConversationResponse>> =
+        ResponseEntity.ok(conversationFacade.getConversations())
 
     @GetMapping("/{id}")
-    fun getConversationById(@PathVariable id: String): List<ConversationResponse> {
-        TODO("implement")
-    }
+    fun getConversationById(@PathVariable id: String): ResponseEntity<ConversationResponse> =
+        conversationFacade.getConversation(id)
+            ?.let { ResponseEntity.ok(it) }
+            ?: ResponseEntity.notFound().build()
 
     @PostMapping
-    fun createConversation(@RequestBody conversationRequest: ConversationRequest): ConversationIdResponse {
-        TODO("implement")
-    }
+    fun createConversation(@RequestBody conversationRequest: ConversationRequest): ResponseEntity<ConversationIdResponse> =
+        ResponseEntity.ok(conversationFacade.createConversation(conversationRequest))
 
     @PutMapping("/{id}")
     fun updateConversation(
         @PathVariable id: String,
         @RequestBody conversationRequest: ConversationRequest
-    ) {
-        TODO("implement")
+    ): ResponseEntity<Any> {
+        conversationFacade.updateConversation(id, conversationRequest)
+        return ResponseEntity.noContent().build()
     }
 
     @DeleteMapping("/{id}")
-    fun deleteConversation(@PathVariable id: String) {
-        TODO("implement")
-    }
+    fun deleteConversation(@PathVariable id: String) = conversationFacade.deleteConversation(id)
 
     @GetMapping("/{conversationId}/messages")
-    fun getMessages(@PathVariable conversationId: String): List<MessageResponse> {
-        TODO("implement")
-    }
+    fun getMessages(@PathVariable conversationId: String): List<MessageResponse> =
+        conversationFacade.getMessages(conversationId)
 
     @GetMapping("/{conversationId}/messages/{messageId}")
     fun getMessageById(
         @PathVariable conversationId: String,
         @PathVariable messageId: String
-    ): MessageResponse {
-        TODO("implement")
-    }
+    ): MessageResponse? = conversationFacade.getMessage(conversationId, messageId)
 
     @PostMapping("/{conversationId}/messages")
     fun createMessage(
         @PathVariable conversationId: String,
         @RequestBody messageRequest: MessageRequest
-    ): MessageIdResponse {
-        TODO("implement")
-    }
+    ): MessageIdResponse? = conversationFacade.createMessage(conversationId, messageRequest)
 
     @DeleteMapping("/{conversationId}/messages/{messageId}")
-    fun deleteMessage(@PathVariable conversationId: String, @PathVariable messageId: String) {
-        TODO("implement")
-    }
+    fun deleteMessage(@PathVariable conversationId: String, @PathVariable messageId: String) =
+        conversationFacade.deleteMessage(conversationId, messageId)
 }
