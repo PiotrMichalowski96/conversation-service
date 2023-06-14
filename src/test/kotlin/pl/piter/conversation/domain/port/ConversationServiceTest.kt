@@ -144,7 +144,7 @@ class ConversationServiceTest {
         every { repository.saveOrUpdate(any()) } returnsArgument 0
 
         //when
-        val actualConversation = conversationService.removeMessage(message, conversation.conversationId)
+        val actualConversation = conversationService.removeMessage(message.messageId, conversation.conversationId)
 
         //then
         assertThat(actualConversation.conversationMessages.messages).hasSize(expectedMessagesCount)

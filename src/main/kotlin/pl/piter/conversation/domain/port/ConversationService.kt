@@ -37,11 +37,11 @@ class ConversationService(
         return addMessageAndPersist(conversationWithQuestion, answer)
     }
 
-    fun removeMessage(message: Message, conversationId: ConversationId): Conversation {
+    fun removeMessage(messageId: MessageId, conversationId: ConversationId): Conversation {
         val conversation: Conversation = repository.findById(conversationId)
             ?: throw DomainException("Cannot remove message from non-existing conversation")
 
-        conversation.removeMessage(message)
+        conversation.removeMessage(messageId)
         return repository.saveOrUpdate(conversation)
     }
 
