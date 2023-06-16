@@ -20,9 +20,10 @@ class ConversationService(
     }
 
     fun updateName(conversationId: ConversationId, name: ConversationName): Conversation? {
-        val conversation: Conversation? = repository.findById(conversationId)
-        val updatedConversation: Conversation? = conversation?.copy(conversationName = name)
-        return updatedConversation?.let { repository.saveOrUpdate(it) }
+        val conversation: Conversation = repository.findById(conversationId)
+            ?: throw DomainException("Cannot update name with non-existing conversation")
+        val updatedConversation: Conversation = conversation.copy(conversationName = name)
+        return repository.saveOrUpdate(updatedConversation)
     }
 
     fun chat(question: Message, conversationId: ConversationId): Conversation {
