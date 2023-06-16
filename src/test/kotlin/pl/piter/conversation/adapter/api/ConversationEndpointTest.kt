@@ -4,7 +4,6 @@ import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
 import io.mockk.junit5.MockKExtension
 import io.mockk.justRun
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -103,7 +102,6 @@ class ConversationEndpointTest(@Autowired private val mvc: MockMvc) {
             .andExpect(status().isNoContent)
     }
 
-    @Disabled
     @Test
     fun `given non-existing id when call update conversation put endpoint then return 422`() {
         //given
@@ -111,7 +109,7 @@ class ConversationEndpointTest(@Autowired private val mvc: MockMvc) {
         val conversationRequest = ConversationRequest("conv-name")
         val conversationId = ConversationId(nonExistingId)
         val conversationName = ConversationName(conversationRequest.name)
-        every { conversationService.updateName(conversationId, conversationName) } returns null
+        every { conversationService.updateName(conversationId, conversationName) } throws DomainException("Cannot update name with non-existing conversation")
 
         //whenThen
         mvc.perform(put("/conversations/${nonExistingId}")
@@ -217,7 +215,6 @@ class ConversationEndpointTest(@Autowired private val mvc: MockMvc) {
             .andExpect(status().isOk)
     }
 
-    @Disabled
     @Test
     fun `given non-existing conversation id and message request when call create message then return 422`() {
         //given
@@ -250,7 +247,6 @@ class ConversationEndpointTest(@Autowired private val mvc: MockMvc) {
             .andExpect(status().isNoContent)
     }
 
-    @Disabled
     @Test
     fun `given non-existing conversation id and message id when call delete message then return 422`() {
         //given
