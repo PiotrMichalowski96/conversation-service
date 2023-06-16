@@ -180,11 +180,9 @@ class ConversationServiceTest {
 
         every { repository.findById(conversationId) } returns null
 
-        //when
-        val updatedConversation: Conversation? = conversationService.updateName(conversationId, newName)
-
-        //then
-        assertThat(updatedConversation).isNull()
+        //whenThen
+        assertThatThrownBy { conversationService.updateName(conversationId, newName) }
+            .isInstanceOf(DomainException::class.java)
     }
 
     private fun createQuestion() = Message(
