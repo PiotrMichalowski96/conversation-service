@@ -32,25 +32,36 @@ class ConversationEndpoint(private val conversationFacade: ConversationFacade) {
     }
 
     @DeleteMapping("/{id}")
-    fun deleteConversation(@PathVariable id: String) = conversationFacade.deleteConversation(id)
+    fun deleteConversation(@PathVariable id: String): ResponseEntity<Any> {
+        conversationFacade.deleteConversation(id)
+        return ResponseEntity.noContent().build()
+    }
 
     @GetMapping("/{conversationId}/messages")
-    fun getMessages(@PathVariable conversationId: String): List<MessageResponse> =
-        conversationFacade.getMessages(conversationId)
+    fun getMessages(@PathVariable conversationId: String): ResponseEntity<List<MessageResponse>> =
+        ResponseEntity.ok(conversationFacade.getMessages(conversationId))
 
     @GetMapping("/{conversationId}/messages/{messageId}")
     fun getMessageById(
         @PathVariable conversationId: String,
         @PathVariable messageId: String
-    ): MessageResponse? = conversationFacade.getMessage(conversationId, messageId)
+    ): ResponseEntity<MessageResponse> =
+        conversationFacade.getMessage(conversationId, messageId)
+            ?.let { ResponseEntity.ok(it) }
+            ?: ResponseEntity.notFound().build()
 
     @PostMapping("/{conversationId}/messages")
     fun createMessage(
         @PathVariable conversationId: String,
         @RequestBody messageRequest: MessageRequest
-    ): MessageIdResponse? = conversationFacade.createMessage(conversationId, messageRequest)
+    ): ResponseEntity<MessageIdResponse> =
+        conversationFacade.createMessage(conversationId, messageRequest)
+            ?.let { ResponseEntity.ok(it) }
+            ?: ResponseEntity.notFound().build()
 
     @DeleteMapping("/{conversationId}/messages/{messageId}")
-    fun deleteMessage(@PathVariable conversationId: String, @PathVariable messageId: String) =
+    fun deleteMessage(@PathVariable conversationId: String, @PathVariable messageId: String): ResponseEntity<Any> {
         conversationFacade.deleteMessage(conversationId, messageId)
+        return ResponseEntity.noContent().build()
+    }
 }
