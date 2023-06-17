@@ -4,11 +4,36 @@ server:
 
 spring.application.name: conversation-service
 
-#External ChatGPT API
+
+########################
+# ChatGPT API
+########################
 chat-gpt.api:
   url: https://api.openai.com/v1
   key: ${chat-gpt-api.key} #Paste here your ChatGPT api key
 
 
+########################
+# Actuator
+########################
+management:
+  endpoints.web.exposure.include: health, info
+  info:
+    env.enabled: true
+    build.enabled: true
+
+
+########################
+# Swagger
+########################
+springdoc:
+  show-actuator: true
+  swagger-ui.path: /swagger-doc/swagger-ui.html
+  api-docs.path: /swagger-doc/v3/api-docs
+
+
+########################
+# Logs
+########################
 logging.level:
   pl.piter.conversation.adapter.chatgpt.client: DEBUG
