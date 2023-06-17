@@ -7,6 +7,8 @@ target/
 .mvn
 mvn*
 
+.run
+
 ### STS ###
 .apt_generated
 .classpath
