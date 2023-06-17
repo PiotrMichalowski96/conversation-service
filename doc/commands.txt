@@ -1,0 +1,9 @@
+#How to create user
+mongosh -u <username> -p <password>
+
+#Create and use database
+use conversations
+
+#Create user
+db.createUser({user: "username", pwd: "password", roles: [{role: "readWrite", db: "conversations"}]});
+

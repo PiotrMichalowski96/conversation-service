@@ -144,10 +144,45 @@ class ConversationServiceTest {
         every { repository.saveOrUpdate(any()) } returnsArgument 0
 
         //when
-        val actualConversation = conversationService.removeMessage(message, conversation.conversationId)
+        val actualConversation = conversationService.removeMessage(message.messageId, conversation.conversationId)
 
         //then
         assertThat(actualConversation.conversationMessages.messages).hasSize(expectedMessagesCount)
+    }
+
+    @Test
+    fun `given conversation name when update name then return conversation with new name`() {
+        //given
+        val sampleNo = 2
+        val conversation: Conversation = ConversationTestData.getDomain(sampleNo)
+        val newName = ConversationName("new-name")
+
+        every { repository.findById(conversation.conversationId) } returns conversation
+        every { repository.saveOrUpdate(any()) } returnsArgument 0
+
+        //when
+        val updatedConversation: Conversation? = conversationService.updateName(conversation.conversationId, newName)
+
+        //then
+        assertThat(updatedConversation?.conversationName).isEqualTo(newName)
+
+        assertThat(updatedConversation)
+            .usingRecursiveComparison()
+            .ignoringFields("conversationName")
+            .isEqualTo(conversation)
+    }
+
+    @Test
+    fun `given conversation does not exist when update name then return null`() {
+        //given
+        val conversationId = ConversationId.random()
+        val newName = ConversationName("new-name")
+
+        every { repository.findById(conversationId) } returns null
+
+        //whenThen
+        assertThatThrownBy { conversationService.updateName(conversationId, newName) }
+            .isInstanceOf(DomainException::class.java)
     }
 
     private fun createQuestion() = Message(

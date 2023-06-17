@@ -1,0 +1,211 @@
+{
+	"info": {
+		"_postman_id": "24a0e726-0f67-4291-815e-133ba0ce9e86",
+		"name": "conversation-service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Find conversations",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/conversations",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"conversations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create conversation",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Question about Math\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/conversations",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"conversations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find conversations by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/conversations/fd2b0abb-8f64-46e4-a084-03419bbf9ddc",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"conversations",
+						"fd2b0abb-8f64-46e4-a084-03419bbf9ddc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find messages by conversation ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/conversations/fd2b0abb-8f64-46e4-a084-03419bbf9ddc/messages",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"conversations",
+						"fd2b0abb-8f64-46e4-a084-03419bbf9ddc",
+						"messages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find message by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/conversations/fd2b0abb-8f64-46e4-a084-03419bbf9ddc/messages/ffeb860d-c6db-4f4d-a817-6e5ac90f605f",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"conversations",
+						"fd2b0abb-8f64-46e4-a084-03419bbf9ddc",
+						"messages",
+						"ffeb860d-c6db-4f4d-a817-6e5ac90f605f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove message",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/conversations/fd2b0abb-8f64-46e4-a084-03419bbf9ddc/messages/ffeb860d-c6db-4f4d-a817-6e5ac90f605f",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"conversations",
+						"fd2b0abb-8f64-46e4-a084-03419bbf9ddc",
+						"messages",
+						"ffeb860d-c6db-4f4d-a817-6e5ac90f605f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create message",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"content\": \"Is it connected with prime numbers?\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/conversations/fd2b0abb-8f64-46e4-a084-03419bbf9ddc/messages",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"conversations",
+						"fd2b0abb-8f64-46e4-a084-03419bbf9ddc",
+						"messages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove conversation",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/conversations/73334722-679b-4ea4-ac7b-57ea57dfa9e4",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"conversations",
+						"73334722-679b-4ea4-ac7b-57ea57dfa9e4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update conversation name",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"First question about Math\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/conversations/fd2b0abb-8f64-46e4-a084-03419bbf9ddc",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"conversations",
+						"fd2b0abb-8f64-46e4-a084-03419bbf9ddc"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

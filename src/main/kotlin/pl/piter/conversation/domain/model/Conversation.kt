@@ -20,9 +20,13 @@ data class Conversation(
         conversationMessages.messages.add(message)
     }
 
-    fun removeMessage(message: Message) {
-        validateAuthor(message)
-        conversationMessages.messages.remove(message)
+    fun removeMessage(messageId: MessageId) {
+        conversationMessages.messages
+            .first { message -> message.messageId == messageId }
+            .let { validateAuthor(it) }
+
+        conversationMessages.messages
+            .removeIf { message -> message.messageId == messageId }
     }
 
     private fun validateAuthor(message: Message) {
