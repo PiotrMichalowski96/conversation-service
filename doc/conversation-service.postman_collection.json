@@ -11,12 +11,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8081/conversations",
+					"raw": "localhost:8081/api/v1/conversations",
 					"host": [
 						"localhost"
 					],
 					"port": "8081",
 					"path": [
+						"api",
+						"v1",
 						"conversations"
 					]
 				}
@@ -38,12 +40,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8081/conversations",
+					"raw": "localhost:8081/api/v1/conversations",
 					"host": [
 						"localhost"
 					],
 					"port": "8081",
 					"path": [
+						"api",
+						"v1",
 						"conversations"
 					]
 				}
@@ -56,12 +60,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8081/conversations/fd2b0abb-8f64-46e4-a084-03419bbf9ddc",
+					"raw": "localhost:8081/api/v1/conversations/fd2b0abb-8f64-46e4-a084-03419bbf9ddc",
 					"host": [
 						"localhost"
 					],
 					"port": "8081",
 					"path": [
+						"api",
+						"v1",
 						"conversations",
 						"fd2b0abb-8f64-46e4-a084-03419bbf9ddc"
 					]
@@ -75,12 +81,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8081/conversations/fd2b0abb-8f64-46e4-a084-03419bbf9ddc/messages",
+					"raw": "localhost:8081/api/v1/conversations/fd2b0abb-8f64-46e4-a084-03419bbf9ddc/messages",
 					"host": [
 						"localhost"
 					],
 					"port": "8081",
 					"path": [
+						"api",
+						"v1",
 						"conversations",
 						"fd2b0abb-8f64-46e4-a084-03419bbf9ddc",
 						"messages"
@@ -95,12 +103,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8081/conversations/fd2b0abb-8f64-46e4-a084-03419bbf9ddc/messages/ffeb860d-c6db-4f4d-a817-6e5ac90f605f",
+					"raw": "localhost:8081/api/v1/conversations/fd2b0abb-8f64-46e4-a084-03419bbf9ddc/messages/ffeb860d-c6db-4f4d-a817-6e5ac90f605f",
 					"host": [
 						"localhost"
 					],
 					"port": "8081",
 					"path": [
+						"api",
+						"v1",
 						"conversations",
 						"fd2b0abb-8f64-46e4-a084-03419bbf9ddc",
 						"messages",
@@ -116,12 +126,14 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:8081/conversations/fd2b0abb-8f64-46e4-a084-03419bbf9ddc/messages/ffeb860d-c6db-4f4d-a817-6e5ac90f605f",
+					"raw": "localhost:8081/api/v1/conversations/fd2b0abb-8f64-46e4-a084-03419bbf9ddc/messages/ffeb860d-c6db-4f4d-a817-6e5ac90f605f",
 					"host": [
 						"localhost"
 					],
 					"port": "8081",
 					"path": [
+						"api",
+						"v1",
 						"conversations",
 						"fd2b0abb-8f64-46e4-a084-03419bbf9ddc",
 						"messages",
@@ -146,12 +158,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8081/conversations/fd2b0abb-8f64-46e4-a084-03419bbf9ddc/messages",
+					"raw": "localhost:8081/api/v1/conversations/fd2b0abb-8f64-46e4-a084-03419bbf9ddc/messages",
 					"host": [
 						"localhost"
 					],
 					"port": "8081",
 					"path": [
+						"api",
+						"v1",
 						"conversations",
 						"fd2b0abb-8f64-46e4-a084-03419bbf9ddc",
 						"messages"
@@ -166,12 +180,14 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:8081/conversations/73334722-679b-4ea4-ac7b-57ea57dfa9e4",
+					"raw": "localhost:8081/api/v1/conversations/73334722-679b-4ea4-ac7b-57ea57dfa9e4",
 					"host": [
 						"localhost"
 					],
 					"port": "8081",
 					"path": [
+						"api",
+						"v1",
 						"conversations",
 						"73334722-679b-4ea4-ac7b-57ea57dfa9e4"
 					]
@@ -194,12 +210,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8081/conversations/fd2b0abb-8f64-46e4-a084-03419bbf9ddc",
+					"raw": "localhost:8081/api/v1/conversations/fd2b0abb-8f64-46e4-a084-03419bbf9ddc",
 					"host": [
 						"localhost"
 					],
 					"port": "8081",
 					"path": [
+						"api",
+						"v1",
 						"conversations",
 						"fd2b0abb-8f64-46e4-a084-03419bbf9ddc"
 					]
