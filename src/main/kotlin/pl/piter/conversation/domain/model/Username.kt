@@ -1,3 +1,3 @@
 package pl.piter.conversation.domain.model
 
-data class UserId(val id: String)
+data class Username(val name: String)

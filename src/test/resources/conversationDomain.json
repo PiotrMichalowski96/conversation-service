@@ -2,8 +2,8 @@
   "conversationId": {
     "id": "conversation1"
   },
-  "userId": {
-    "id": "user1"
+  "username": {
+    "name": "user1"
   },
   "conversationName": {
     "name": "Question about Physics"

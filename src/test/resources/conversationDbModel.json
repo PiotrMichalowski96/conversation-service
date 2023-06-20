@@ -1,6 +1,6 @@
 {
   "id": "conversation1",
-  "userId": "user1",
+  "username": "user1",
   "name": "Question about Physics",
   "createdAt": "2023-04-21T23:00:00",
   "messages": [

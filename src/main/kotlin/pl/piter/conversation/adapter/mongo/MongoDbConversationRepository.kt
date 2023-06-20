@@ -5,21 +5,21 @@ import pl.piter.conversation.adapter.mongo.mapper.toDbModel
 import pl.piter.conversation.adapter.mongo.mapper.toDomain
 import pl.piter.conversation.domain.model.Conversation
 import pl.piter.conversation.domain.model.ConversationId
-import pl.piter.conversation.domain.model.UserId
+import pl.piter.conversation.domain.model.Username
 import pl.piter.conversation.domain.port.ConversationRepository
 
 @Repository
 class MongoDbConversationRepository(private val repository: SpringConversationRepository) :
     ConversationRepository {
 
-    override fun findById(conversationId: ConversationId): Conversation? {
-        return repository.findById(conversationId.id)
+    override fun findByIdAndUsername(conversationId: ConversationId, username: Username): Conversation? {
+        return repository.findByIdAndUsername(conversationId.id, username.name)
             .map { it.toDomain() }
             .orElse(null)
     }
 
-    override fun findByUserId(userId: UserId): List<Conversation> {
-        return repository.findByUserId(userId.id)
+    override fun findByUsername(username: Username): List<Conversation> {
+        return repository.findByUsername(username.name)
             .map { it.toDomain() }
     }
 
@@ -28,7 +28,7 @@ class MongoDbConversationRepository(private val repository: SpringConversationRe
             .toDomain()
     }
 
-    override fun delete(conversationId: ConversationId) {
-        repository.deleteById(conversationId.id)
+    override fun delete(conversationId: ConversationId, username: Username) {
+        repository.deleteByIdAndUsername(conversationId.id, username.name)
     }
 }

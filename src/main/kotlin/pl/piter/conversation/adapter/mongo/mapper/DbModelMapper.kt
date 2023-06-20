@@ -7,7 +7,7 @@ import pl.piter.conversation.domain.model.*
 
 fun ConversationDbModel.toDomain() = Conversation(
     conversationId = ConversationId(id),
-    userId = UserId(userId),
+    username = Username(username),
     conversationName = ConversationName(name),
     conversationMessages = ConversationMessages(messages.map { it.toDomain() }.toMutableList()),
     conversationDateTime = ConversationDateTime(createdAt)
@@ -15,7 +15,7 @@ fun ConversationDbModel.toDomain() = Conversation(
 
 fun Conversation.toDbModel() = ConversationDbModel(
     id = conversationId.id,
-    userId = userId.id,
+    username = username.name,
     name = conversationName.name,
     createdAt = conversationDateTime.createdAt,
     messages = conversationMessages.messages.map { it.toDbModel() }

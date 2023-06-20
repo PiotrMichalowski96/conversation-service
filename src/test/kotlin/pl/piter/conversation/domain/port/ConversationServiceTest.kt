@@ -29,57 +29,58 @@ class ConversationServiceTest {
     private lateinit var chatService: ChatService
 
     @Test
-    fun `given conversation id when get by id then return conversation`() {
+    fun `given conversation id and username when get by id and username then return conversation`() {
         //given
         val sampleNo = 1
         val conversation: Conversation = ConversationTestData.getDomain(sampleNo)
-        every { repository.findById(conversation.conversationId) } returns conversation
+        every { repository.findByIdAndUsername(conversation.conversationId, conversation.username) } returns conversation
 
         //when
-        val actualConversation = conversationService[conversation.conversationId]
+        val actualConversation = conversationService[conversation.conversationId, conversation.username]
 
         //then
         assertThat(actualConversation).isEqualTo(conversation)
     }
 
     @Test
-    fun `given user id when get by user id then return conversation`() {
+    fun `given username when get by username then return conversation`() {
         //given
         val sampleNo = 1
         val conversation: Conversation = ConversationTestData.getDomain(sampleNo)
         val conversations = listOf(conversation)
-        every { repository.findByUserId(conversation.userId) } returns conversations
+        every { repository.findByUsername(conversation.username) } returns conversations
 
         //when
-        val actualConversations = conversationService[conversation.userId]
+        val actualConversations = conversationService[conversation.username]
 
         //then
         assertThat(actualConversations).hasSameElementsAs(conversations)
     }
 
     @Test
-    fun `given conversation id when delete then call delete from repository`() {
+    fun `given conversation id and username when delete then call delete from repository`() {
         //given
         val conversationId = ConversationId(UUID.randomUUID().toString())
-        every { repository.delete(conversationId) } just runs
+        val username = Username("username")
+        every { repository.delete(conversationId, username) } just runs
 
         //when
-        conversationService.delete(conversationId)
+        conversationService.delete(conversationId, username)
 
         //then
-        verify { repository.delete(conversationId) }
+        verify { repository.delete(conversationId, username) }
     }
 
     @Test
-    fun `given user id and conversation name when initiate then return conversation`() {
+    fun `given user id, conversation name and username when initiate then return conversation`() {
         //given
-        val userId = UserId(UUID.randomUUID().toString())
+        val username = Username(UUID.randomUUID().toString())
         val name = ConversationName("some name")
-        val expectedConversation = Conversation.initiate(userId, name)
+        val expectedConversation = Conversation.initiate(username, name)
         every { repository.saveOrUpdate(any()) } returnsArgument 0
 
         //when
-        val actualConversation = conversationService.initiateConversation(userId, name)
+        val actualConversation = conversationService.initiateConversation(username, name)
 
         //then
         assertThat(actualConversation).usingRecursiveComparison()
@@ -88,32 +89,32 @@ class ConversationServiceTest {
     }
 
     @Test
-    fun `given question and conversation id when ask chat then return conversation`() {
+    fun `given question, conversation id and username when ask chat then return conversation`() {
         //given
         val question = createQuestion()
         val conversation: Conversation = ConversationTestData.getDomain(0)
 
-        every { repository.findById(conversation.conversationId) } returns conversation
+        every { repository.findByIdAndUsername(conversation.conversationId, conversation.username) } returns conversation
         mockConversationWithQuestion(conversation, question)
         mockConversationWithAnswer(conversation)
 
         //when
-        val actualConversation = conversationService.chat(question, conversation.conversationId)
+        val actualConversation = conversationService.chat(question, conversation.conversationId, conversation.username)
 
         //then
         assertThat(actualConversation).isEqualTo(conversation)
     }
 
     @Test
-    fun `given question and id when conversation does not exist then throw exception`() {
+    fun `given question, conversation id and username when conversation does not exist then throw exception`() {
         //given
         val question = createQuestion()
         val conversation: Conversation = ConversationTestData.getDomain(0)
 
-        every { repository.findById(conversation.conversationId) } returns null
+        every { repository.findByIdAndUsername(conversation.conversationId, conversation.username) } returns null
 
         //whenThen
-        assertThatThrownBy { conversationService.chat(question, conversation.conversationId) }
+        assertThatThrownBy { conversationService.chat(question, conversation.conversationId, conversation.username) }
             .isInstanceOf(DomainException::class.java)
     }
 
@@ -128,40 +129,41 @@ class ConversationServiceTest {
         val conversation: Conversation = ConversationTestData.getDomain(0)
 
         //whenThen
-        assertThatThrownBy { conversationService.chat(questionWithChatAuthor, conversation.conversationId) }
+        assertThatThrownBy { conversationService.chat(questionWithChatAuthor, conversation.conversationId, conversation.username) }
             .isInstanceOf(IllegalArgumentException::class.java)
     }
 
     @Test
-    fun `given message and id when remove message then return conversation`() {
+    fun `given message, conversation id and username when remove message then return conversation`() {
         //given
         val sampleNo = 2
         val conversation: Conversation = ConversationTestData.getDomain(sampleNo)
         val expectedMessagesCount = conversation.conversationMessages.messages.size - 1
         val message: Message = conversation.conversationMessages.messages.last()
 
-        every { repository.findById(conversation.conversationId) } returns conversation
+        every { repository.findByIdAndUsername(conversation.conversationId, conversation.username) } returns conversation
         every { repository.saveOrUpdate(any()) } returnsArgument 0
 
         //when
-        val actualConversation = conversationService.removeMessage(message.messageId, conversation.conversationId)
+        val actualConversation = conversationService.removeMessage(message.messageId, conversation.conversationId, conversation.username)
 
         //then
         assertThat(actualConversation.conversationMessages.messages).hasSize(expectedMessagesCount)
     }
 
     @Test
-    fun `given conversation name when update name then return conversation with new name`() {
+    fun `given conversation name and username when update name then return conversation with new name`() {
         //given
         val sampleNo = 2
         val conversation: Conversation = ConversationTestData.getDomain(sampleNo)
+        val username: Username = conversation.username
         val newName = ConversationName("new-name")
 
-        every { repository.findById(conversation.conversationId) } returns conversation
+        every { repository.findByIdAndUsername(conversation.conversationId, username) } returns conversation
         every { repository.saveOrUpdate(any()) } returnsArgument 0
 
         //when
-        val updatedConversation: Conversation? = conversationService.updateName(conversation.conversationId, newName)
+        val updatedConversation: Conversation? = conversationService.updateName(conversation.conversationId, username, newName)
 
         //then
         assertThat(updatedConversation?.conversationName).isEqualTo(newName)
@@ -176,12 +178,13 @@ class ConversationServiceTest {
     fun `given conversation does not exist when update name then return null`() {
         //given
         val conversationId = ConversationId.random()
+        val username = Username("user1")
         val newName = ConversationName("new-name")
 
-        every { repository.findById(conversationId) } returns null
+        every { repository.findByIdAndUsername(conversationId, username) } returns null
 
         //whenThen
-        assertThatThrownBy { conversationService.updateName(conversationId, newName) }
+        assertThatThrownBy { conversationService.updateName(conversationId, username, newName) }
             .isInstanceOf(DomainException::class.java)
     }
 
