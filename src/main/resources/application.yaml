@@ -31,6 +31,12 @@ springdoc:
   swagger-ui.path: /swagger-doc/swagger-ui.html
   api-docs.path: /swagger-doc/v3/api-docs
 
+########################
+# Security
+########################
+spring.security.oauth2.resourceserver.jwt:
+  audiences: ${client-id}
+  issuer-uri: https://cognito-idp.us-east-1.amazonaws.com/${user-pool-id}
 
 ########################
 # Logs

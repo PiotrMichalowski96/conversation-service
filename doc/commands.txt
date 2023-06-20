@@ -7,3 +7,5 @@ use conversations
 #Create user
 db.createUser({user: "username", pwd: "password", roles: [{role: "readWrite", db: "conversations"}]});
 
+#AWS cognito
+aws cognito-idp initiate-auth --region us-east-1 --auth-flow USER_PASSWORD_AUTH --client-id abc123 --auth-parameters USERNAME=aa,PASSWORD=bb
